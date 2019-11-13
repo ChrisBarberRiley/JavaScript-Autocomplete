@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Autocomplete</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-w+8Gqjk9Cuo6XH9HKHG5t5I1VR4YBNdPt/29vwgfZR485eoEJZ8rJRbm3TR32P6k" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="input-group m-3">
+            <input type="text" id="search" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button">Button</button>
+            </div>
+          </div>
+
+          <div id="results"></div>
+    </div>
+
+    <script>
+        const search = document.getElementById('search')
+        const results = document.getElementById('results')
+
+        const checkInput = async searchInput => {
+            // console.log(searchInput)
+            let res = await fetch('./_data.json');
+            let returnedJSON = await res.json();
+
+            let matches = returnedJSON.filter(result => {
+                const regex = new RegExp(`^${result}`, 'gi')
+                return result.name.match(regex);
+            })
+
+            if (searchInput.length === 0) {
+                matches = [];
+            }
+
+            outputHTML(matches)
+        }
+
+        const outputHTML = content => {
+            if (content.length > 0) {
+                const html = content.map(item => `
+                    <p>Name: ${item.name} - Location: ${item.location}</p>
+                `).join('')
+
+                results.innerHTML = html;
+            }
+        }
+
+        search.addEventListener('input', () => checkInput(search.value))
+    </script>
+</body>
+</html>

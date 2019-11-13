@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Chris",
+        "role": "admin",
+        "age": 31,
+        "location": "uk"
+    },
+    {
+        "name": "Christopher",
+        "role": "admin",
+        "age": 22,
+        "location": "uk"
+    },
+    {
+        "name": "Simon",
+        "role": "publisher",
+        "age": 22,
+        "location": "us"
+    },
+    {
+        "name": "Pete",
+        "role": "reporter",
+        "age": 56,
+        "location": "cn"
+    }
+]
